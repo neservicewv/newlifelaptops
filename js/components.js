@@ -65,8 +65,8 @@ const footerHTML = `
     <div class="footer-col">
       <h4>Contact</h4>
       <ul class="footer-contact">
-        <li><i class="fas fa-envelope"></i> <a href="mailto:info@newlifelaptops.com">info@newlifelaptops.com</a></li>
-        <li><i class="fas fa-phone"></i> <span>(000) 000-0000</span></li>
+        <li><i class="fas fa-envelope"></i> <a href="mailto:neservicewv@gmail.com">neservicewv@gmail.com</a></li>
+        <li><i class="fas fa-phone"></i> <a href="tel:+13043602188">(304) 360-2188</a></li>
         <li><i class="fas fa-map-marker-alt"></i> <span>West Virginia, USA</span></li>
       </ul>
       <div class="footer-legal">
@@ -97,14 +97,12 @@ function initNavbar() {
   const navLinks = document.getElementById('navLinks');
   if (!navbar) return;
 
-  // Scroll effect
   const handleScroll = () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
   };
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // Mobile toggle
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
       navLinks.classList.toggle('open');
@@ -112,7 +110,6 @@ function initNavbar() {
     });
   }
 
-  // Active link highlighting
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-link').forEach(link => {
     const href = link.getAttribute('href');
@@ -123,7 +120,6 @@ function initNavbar() {
     }
   });
 
-  // Close mobile menu on link click
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
       if (navLinks) navLinks.classList.remove('open');

@@ -261,7 +261,7 @@ p { margin-bottom: 1rem; }
   padding: 6px 18px; border-radius: 999px; margin-bottom: 28px;
 }
 .hero-logo {
-  width: 160px; margin: 0 auto 28px;
+  width: 220px; margin: 0 auto 28px;
   animation: float 4s ease-in-out infinite;
 }
 @keyframes float {

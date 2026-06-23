@@ -77,6 +77,15 @@
           <div class="slide-right">
             <div class="contact-form-wrap">
               <h3 style="margin-bottom:24px;font-size:0.95rem;text-transform:uppercase;letter-spacing:0.08em;">Send Us a Message</h3>
+
+              <!-- Success message (hidden until form submits) -->
+              <div id="formSuccess" style="display:none;">
+                <div class="form-success">
+                  <i class="fas fa-circle-check"></i>
+                  <span>Message sent! We&rsquo;ll get back to you soon.</span>
+                </div>
+              </div>
+
               <form id="contactForm" novalidate>
                 <div class="form-row">
                   <div class="form-group">
@@ -110,9 +119,12 @@
                   <label class="form-label" for="message">Message *</label>
                   <textarea id="message" name="message" class="form-textarea" placeholder="Tell us what you're looking for, your budget, or any questions..." required></textarea>
                 </div>
-                <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
-                  <i class="fas fa-paper-plane"></i> Send Message
+                <button type="submit" id="submitBtn" class="btn-primary" style="width:100%;justify-content:center;">
+                  <i class="fas fa-paper-plane"></i> <span id="submitBtnText">Send Message</span>
                 </button>
+                <div id="formError" style="display:none;margin-top:12px;padding:12px 16px;background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.25);border-radius:var(--radius-sm);color:#ff6b6b;font-size:0.85rem;">
+                  Something went wrong. Please try again or email us directly.
+                </div>
               </form>
             </div>
           </div>
@@ -127,5 +139,52 @@
   <script src="js/products.js"></script>
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const form = this;
+      const btn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('submitBtnText');
+      const successEl = document.getElementById('formSuccess');
+      const errorEl = document.getElementById('formError');
+
+      // Basic validation
+      const required = ['firstName', 'lastName', 'email', 'subject', 'message'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.style.borderColor = '#ff6b6b'; valid = false; }
+        else { el.style.borderColor = ''; }
+      });
+      if (!valid) return;
+
+      // Loading state
+      btn.disabled = true;
+      btnText.textContent = 'Sending...';
+      errorEl.style.display = 'none';
+
+      const data = new FormData(form);
+
+      try {
+        const response = await fetch('https://formspree.io/f/neservicewv@gmail.com', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          successEl.style.display = 'block';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (err) {
+        errorEl.style.display = 'block';
+        btn.disabled = false;
+        btnText.textContent = 'Send Message';
+      }
+    });
+  </script>
 </body>
 </html>

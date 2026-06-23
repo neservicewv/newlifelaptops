@@ -122,7 +122,7 @@
                   <i class="fas fa-paper-plane"></i> <span id="submitBtnText">Send Message</span>
                 </button>
                 <div id="formError" style="display:none;margin-top:12px;padding:12px 16px;background:rgba(255,60,60,0.1);border:1px solid rgba(255,60,60,0.25);border-radius:var(--radius-sm);color:#ff6b6b;font-size:0.85rem;">
-                  Something went wrong. Please try again or email us directly at <a href="mailto:neservicewv@gmail.com" style="color:#ff6b6b;text-decoration:underline;">neservicewv@gmail.com</a>.
+                  Something went wrong. Please try again or email us at <a href="mailto:neservicewv@gmail.com" style="color:#ff6b6b;text-decoration:underline;">neservicewv@gmail.com</a>.
                 </div>
               </form>
             </div>
@@ -142,15 +142,14 @@
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const form = this;
-      const btn = document.getElementById('submitBtn');
-      const btnText = document.getElementById('submitBtnText');
-      const successEl = document.getElementById('formSuccess');
-      const errorEl = document.getElementById('formError');
+      var btn     = document.getElementById('submitBtn');
+      var btnText = document.getElementById('submitBtnText');
+      var successEl = document.getElementById('formSuccess');
+      var errorEl   = document.getElementById('formError');
 
       // Basic validation
-      const required = ['firstName', 'lastName', 'email', 'subject', 'message'];
-      let valid = true;
+      var required = ['firstName', 'lastName', 'email', 'subject', 'message'];
+      var valid = true;
       required.forEach(function(id) {
         var el = document.getElementById(id);
         if (!el.value.trim()) { el.style.borderColor = '#ff6b6b'; valid = false; }
@@ -158,38 +157,33 @@
       });
       if (!valid) return;
 
-      // Loading state
       btn.disabled = true;
       btnText.textContent = 'Sending...';
       errorEl.style.display = 'none';
 
-      // Build JSON payload
       var payload = {
-        firstName: document.getElementById('firstName').value,
-        lastName:  document.getElementById('lastName').value,
-        email:     document.getElementById('email').value,
-        phone:     document.getElementById('phone').value,
-        subject:   document.getElementById('subject').value,
-        message:   document.getElementById('message').value
+        access_key: '93ece1bd-0309-43a5-8f44-3e4ef00b28d1',
+        subject: 'New Life Laptops – Contact Form: ' + document.getElementById('subject').value,
+        from_name: document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        inquiry: document.getElementById('subject').value,
+        message: document.getElementById('message').value
       };
 
       try {
-        var response = await fetch('https://formsubmit.co/ajax/neservicewv@gmail.com', {
+        var response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)
         });
-
         var result = await response.json();
 
-        if (result.success === 'true' || result.success === true) {
-          form.style.display = 'none';
+        if (result.success) {
+          document.getElementById('contactForm').style.display = 'none';
           successEl.style.display = 'block';
         } else {
-          throw new Error('Failed');
+          throw new Error(result.message || 'Failed');
         }
       } catch (err) {
         errorEl.style.display = 'block';

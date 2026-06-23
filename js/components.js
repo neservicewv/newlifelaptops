@@ -1,7 +1,7 @@
 // components.js – Shared navigation and footer injection
 // New Life Laptops
 
-const LOGO_SRC = 'images/New%20Life%20Laptops%20Logo.png';
+const LOGO_SRC = 'images/NLL%20LOGO%20TRANS.png';
 
 const navHTML = `
 <nav class="navbar" id="navbar">

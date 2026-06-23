@@ -1,29 +1,29 @@
 // components.js – Shared navigation and footer injection
 // New Life Laptops
 
-const LOGO_SRC = 'images/NLL%20LOGO%20TRANS.png';
+const LOGO_SRC = '/images/NLL%20LOGO%20TRANS.png';
 
 const navHTML = `
 <nav class="navbar" id="navbar">
   <div class="nav-container">
-    <a href="index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <img src="${LOGO_SRC}" alt="New Life Laptops" class="logo-img">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="/" class="nav-link">Home</a></li>
       <li class="nav-dropdown">
-        <a href="shop.html" class="nav-link">Shop <i class="fas fa-chevron-down"></i></a>
+        <a href="/shop/" class="nav-link">Shop <i class="fas fa-chevron-down"></i></a>
         <ul class="dropdown-menu">
-          <li><a href="shop.html">All Products</a></li>
-          <li><a href="shop.html?category=budget">Budget Laptops</a></li>
-          <li><a href="shop.html?category=business">Business Laptops</a></li>
-          <li><a href="shop.html?category=student">Student Laptops</a></li>
-          <li><a href="shop.html?category=gaming">Gaming / Performance</a></li>
-          <li><a href="shop.html?category=desktop">Desktops</a></li>
+          <li><a href="/shop/">All Products</a></li>
+          <li><a href="/shop/?category=budget">Budget Laptops</a></li>
+          <li><a href="/shop/?category=business">Business Laptops</a></li>
+          <li><a href="/shop/?category=student">Student Laptops</a></li>
+          <li><a href="/shop/?category=gaming">Gaming / Performance</a></li>
+          <li><a href="/shop/?category=desktop">Desktops</a></li>
         </ul>
       </li>
-      <li><a href="about.html" class="nav-link">About</a></li>
-      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li><a href="/about/" class="nav-link">About</a></li>
+      <li><a href="/contact/" class="nav-link">Contact</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
@@ -45,20 +45,20 @@ const footerHTML = `
     <div class="footer-col">
       <h4>Quick Links</h4>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/shop/">Shop</a></li>
+        <li><a href="/about/">About Us</a></li>
+        <li><a href="/contact/">Contact</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Categories</h4>
       <ul>
-        <li><a href="shop.html?category=budget">Budget Laptops</a></li>
-        <li><a href="shop.html?category=business">Business Laptops</a></li>
-        <li><a href="shop.html?category=student">Student Laptops</a></li>
-        <li><a href="shop.html?category=gaming">Gaming / Performance</a></li>
-        <li><a href="shop.html?category=desktop">Desktops</a></li>
+        <li><a href="/shop/?category=budget">Budget Laptops</a></li>
+        <li><a href="/shop/?category=business">Business Laptops</a></li>
+        <li><a href="/shop/?category=student">Student Laptops</a></li>
+        <li><a href="/shop/?category=gaming">Gaming / Performance</a></li>
+        <li><a href="/shop/?category=desktop">Desktops</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -69,9 +69,9 @@ const footerHTML = `
         <li><i class="fas fa-map-marker-alt"></i> <span>West Virginia, USA</span></li>
       </ul>
       <div class="footer-legal">
-        <a href="terms.html">Terms of Service</a>
-        <a href="refund.html">Refund Policy</a>
-        <a href="privacy.html">Privacy Policy</a>
+        <a href="/terms/">Terms of Service</a>
+        <a href="/refund/">Refund Policy</a>
+        <a href="/privacy/">Privacy Policy</a>
       </div>
     </div>
   </div>
@@ -109,12 +109,14 @@ function initNavbar() {
     });
   }
 
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // Active link detection using absolute paths
+  const path = window.location.pathname;
   document.querySelectorAll('.nav-link').forEach(link => {
     const href = link.getAttribute('href');
     if (!href) return;
-    const page = href.split('?')[0];
-    if (page === currentPage || (currentPage === '' && page === 'index.html')) {
+    if (href === '/' && (path === '/' || path === '/index.html')) {
+      link.classList.add('active');
+    } else if (href !== '/' && path.startsWith(href)) {
       link.classList.add('active');
     }
   });
@@ -126,7 +128,7 @@ function initNavbar() {
     });
   });
 
-  // Fix dropdown hover gap: small delay before hiding so the cursor can reach the menu
+  // Fix dropdown hover gap
   document.querySelectorAll('.nav-dropdown').forEach(function(dd) {
     var timer;
     var menu = dd.querySelector('.dropdown-menu');

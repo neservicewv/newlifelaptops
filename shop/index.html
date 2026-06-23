@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop – New Life Laptops | Certified Refurbished Computers</title>
+  <meta name="description" content="Browse certified refurbished laptops and desktops. Budget, business, student, gaming, and desktop options available. All tested and professionally restored.">
+  <link rel="icon" href="/images/NLL%20LOGO%20TRANS.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <canvas id="circuit-bg"></canvas>
+  <div class="page-wrapper">
+    <div id="nav-placeholder"></div>
+
+    <div class="page-hero">
+      <div class="page-hero-content">
+        <span class="section-tag">Certified Refurbished</span>
+        <h1>Shop All Devices</h1>
+        <p>Every laptop and desktop inspected, cleaned, repaired, tested, and restored.</p>
+      </div>
+    </div>
+
+    <section class="section-pad">
+      <div class="container">
+        <div class="shop-controls">
+          <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by brand, model, processor, RAM...">
+          </div>
+          <select id="sortSelect" class="sort-select">
+            <option value="default">Sort: Default</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name-asc">Name: A&ndash;Z</option>
+          </select>
+        </div>
+        <div class="filter-bar">
+          <span class="filter-label">Category:</span>
+          <button class="filter-btn active" data-category="all">All Products</button>
+          <button class="filter-btn" data-category="budget">Budget</button>
+          <button class="filter-btn" data-category="business">Business</button>
+          <button class="filter-btn" data-category="student">Student</button>
+          <button class="filter-btn" data-category="gaming">Gaming / Performance</button>
+          <button class="filter-btn" data-category="desktop">Desktops</button>
+        </div>
+        <div class="results-meta"><span class="result-count" id="resultCount"></span></div>
+        <div class="products-grid" id="productGrid">
+          <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--color-text-muted);">
+            <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--color-primary);display:block;margin-bottom:16px;"></i>
+            Loading products...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad-sm">
+      <div class="container">
+        <div class="cta-section">
+          <h2>Can&rsquo;t Find What You&rsquo;re Looking For?</h2>
+          <p>We source new inventory regularly. Tell us your requirements and budget.</p>
+          <div class="cta-buttons">
+            <a href="/contact/" class="btn-primary"><i class="fas fa-envelope"></i> Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+  </div>
+  <script src="/js/circuit.js"></script>
+  <script src="/js/products.js"></script>
+  <script src="/js/components.js"></script>
+  <script src="/js/shop.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

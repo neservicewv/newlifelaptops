@@ -5,8 +5,7 @@ const navHTML = `
 <nav class="navbar" id="navbar">
   <div class="nav-container">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo.png" alt="New Life Laptops" class="logo-img"
-           onerror="this.style.display='none'">
+      <img src="images/logo.svg" alt="New Life Laptops" class="logo-img">
       <span class="logo-text">New Life <span class="accent">Laptops</span></span>
     </a>
     <ul class="nav-links" id="navLinks">
@@ -36,11 +35,10 @@ const footerHTML = `
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-brand">
-      <img src="images/logo.png" alt="New Life Laptops" class="footer-logo"
-           onerror="this.style.display='none'">
+      <img src="images/logo.svg" alt="New Life Laptops" class="footer-logo">
       <p class="footer-tagline">We rebuild computers,<br><em>God rebuilds lives.</em></p>
       <div class="footer-social">
-        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.facebook.com/newlifelaptops" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
       </div>
     </div>
     <div class="footer-col">
@@ -125,5 +123,18 @@ function initNavbar() {
       if (navLinks) navLinks.classList.remove('open');
       if (navToggle) navToggle.classList.remove('active');
     });
+  });
+
+  // Fix dropdown hover gap: small delay before hiding so the cursor can reach the menu
+  document.querySelectorAll('.nav-dropdown').forEach(function(dd) {
+    var timer;
+    var menu = dd.querySelector('.dropdown-menu');
+    if (!menu) return;
+    var show = function() { clearTimeout(timer); dd.classList.add('dd-open'); };
+    var hide = function() { timer = setTimeout(function() { dd.classList.remove('dd-open'); }, 120); };
+    dd.addEventListener('mouseenter', show);
+    dd.addEventListener('mouseleave', hide);
+    menu.addEventListener('mouseenter', show);
+    menu.addEventListener('mouseleave', hide);
   });
 }

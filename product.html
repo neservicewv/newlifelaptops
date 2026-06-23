@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details – New Life Laptops</title>
+  <meta name="description" content="View detailed specifications, condition, and pricing for certified refurbished laptops and computers from New Life Laptops.">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="circuit-bg"></canvas>
+  <div class="page-wrapper">
+    <div id="nav-placeholder"></div>
+
+    <section class="section-pad" style="padding-top:calc(var(--nav-height) + 60px);">
+      <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fas fa-chevron-right"></i>
+          <a href="shop.html">Shop</a>
+          <i class="fas fa-chevron-right"></i>
+          <span id="breadcrumbProduct">Product</span>
+        </div>
+
+        <!-- Product detail (populated by JS) -->
+        <div class="detail-layout" id="productDetail">
+          <div style="text-align:center;padding:80px;color:var(--color-text-muted);grid-column:1/-1;">
+            <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:var(--color-primary);display:block;margin-bottom:16px;"></i>
+            Loading product...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="section-pad bg-alt glow-border-top">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">More Like This</span>
+          <h2 class="section-title">Related Products</h2>
+          <div class="divider"></div>
+        </div>
+        <div class="products-grid" id="relatedProducts"></div>
+        <div style="margin-top:32px;">
+          <a href="shop.html" class="btn-secondary"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+  </div>
+
+  <script src="js/circuit.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof initProductDetail === 'function') initProductDetail();
+      // Update breadcrumb
+      const urlParams = new URLSearchParams(window.location.search);
+      const product = typeof getProductById === 'function' ? getProductById(parseInt(urlParams.get('id'))) : null;
+      if (product) {
+        const bc = document.getElementById('breadcrumbProduct');
+        if (bc) bc.textContent = product.name;
+        document.title = product.name + ' – New Life Laptops';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,12 +1,13 @@
 // components.js – Shared navigation and footer injection
 // New Life Laptops
 
+const LOGO_SRC = 'images/New%20Life%20Laptops%20Logo.png';
+
 const navHTML = `
 <nav class="navbar" id="navbar">
   <div class="nav-container">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo.svg" alt="New Life Laptops" class="logo-img">
-      <span class="logo-text">New Life <span class="accent">Laptops</span></span>
+      <img src="${LOGO_SRC}" alt="New Life Laptops" class="logo-img">
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="nav-link">Home</a></li>
@@ -35,7 +36,7 @@ const footerHTML = `
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-brand">
-      <img src="images/logo.svg" alt="New Life Laptops" class="footer-logo">
+      <img src="${LOGO_SRC}" alt="New Life Laptops" class="footer-logo">
       <p class="footer-tagline">We rebuild computers,<br><em>God rebuilds lives.</em></p>
       <div class="footer-social">
         <a href="https://www.facebook.com/newlifelaptops" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>

@@ -1,71 +1,49 @@
 # New Life Laptops — Inventory System
 
-A Next.js 14 inventory management system for tracking refurbished laptops, accessories, and eBay sales.
+Local inventory management for tracking refurbished laptops and accessories.
 
-## Features
+## Quick Start (Windows)
 
-- **Devices** — full CRUD with spec fields, SKU, condition, pricing, eBay listing info
-- **Accessories & Parts** — inventory with quantity tracking and low-stock alerts
-- **eBay Order Sync** — OAuth 2.0, auto-pulls completed orders, matches to inventory by SKU or Listing ID
-- **Dashboard** — revenue, profit, status breakdowns, recent activity
-- **Reports** — business analytics overview
+1. Install [Node.js](https://nodejs.org) if you haven't already (LTS version)
+2. Download or clone this repo
+3. Open a terminal in the `inventory/` folder
+4. Double-click **`start.bat`** (or run it from the terminal)
+5. Open your browser to **http://localhost:3000**
 
-## Quick Start
+That's it. The first run installs packages and sets up the database automatically.
 
-### 1. Install dependencies
+## Manual Start
+
+If you prefer to run commands yourself:
 
 ```bash
 cd inventory
 npm install
-```
-
-### 2. Set up environment variables
-
-```bash
-cp .env.example .env.local
-```
-
-Edit `.env.local` with your eBay credentials (see below).
-
-### 3. Set up the database
-
-```bash
 npx prisma migrate dev --name init
-```
-
-This creates `prisma/dev.db` — a local SQLite file, no server needed.
-
-### 4. Run the dev server
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Then open http://localhost:3000.
 
-## eBay Developer Setup
+## Features
 
-1. Go to [developer.ebay.com](https://developer.ebay.com) and create an app
-2. Under **Auth Tokens → OAuth**, register your redirect URI
-3. Copy **Client ID** and **Client Secret** to `.env.local`
-4. In the app, go to **Settings → Connect eBay Account**
+- **Dashboard** — total devices, sold, revenue, profit, low stock alerts
+- **Devices** — add/edit/delete laptops with full specs (processor, RAM, storage, display, battery, OS, serial #, condition, cost, sale price, location, notes)
+- **Accessories** — track chargers, cables, RAM, batteries, etc. with quantity and low-stock alerts
+- **Reports** — revenue, profit, margin, status breakdown
 
-**Required scopes** (requested automatically):
-- `https://api.ebay.com/oauth/api_scope`
-- `https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly`
+## Statuses
 
-## Order Matching Logic
+Devices can be marked: **Available**, **Listed on eBay**, **Listed on Facebook**, **Sold**, **Shipped**, **Returned**
 
-When syncing, each eBay order line item is matched to a device by:
-1. eBay SKU → device `ebaySku` field (or `sku` field)
-2. eBay Listing ID → device `ebayListingId` field
+Accessories: **In Stock**, **Low Stock**, **Out of Stock**, **Listed on eBay**, **Sold**
 
-Matched devices are auto-marked **Sold**. Unmatched orders go to the **Unmatched** tab for manual review.
+## Data
+
+All data is stored locally in `prisma/dev.db` (a SQLite file on your computer). Nothing is sent anywhere. Back up this file to keep your data safe.
 
 ## Tech Stack
 
-- [Next.js 14](https://nextjs.org) App Router
-- [Prisma 5](https://www.prisma.io) + SQLite
-- [Tailwind CSS](https://tailwindcss.com)
-- [Lucide React](https://lucide.dev)
-- eBay OAuth 2.0 + Fulfillment API
+- [Next.js 14](https://nextjs.org) — web framework
+- [Prisma](https://prisma.io) + SQLite — local database
+- [Tailwind CSS](https://tailwindcss.com) — styling

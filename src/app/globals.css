@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Inventory system global overrides */
+body {
+  margin: 0;
+  padding: 0;
+  background: #07071a;
+  color: #ccd6f6;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}

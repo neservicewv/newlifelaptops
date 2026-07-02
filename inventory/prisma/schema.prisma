@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Device {
+  id             String    @id @default(cuid())
+  sku            String    @unique
+  title          String
+  brand          String
+  model          String
+  serialNumber   String?
+  processor      String?
+  ram            String?
+  storage        String?
+  display        String?
+  battery        String?
+  os             String?
+  color          String?
+  condition      String
+  conditionNotes String?
+  costPrice      Float     @default(0)
+  salePrice      Float?
+  status         String    @default("Available")
+  location       String?
+  notes          String?
+  photos         String?
+  ebayListingId  String?
+  ebaySku        String?
+  soldPrice      Float?
+  soldDate       DateTime?
+  ebayOrderId    String?
+  buyerUsername  String?
+  trackingNumber String?
+  shippingStatus String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  accessories    DeviceAccessory[]
+}
+
+model Accessory {
+  id            String    @id @default(cuid())
+  sku           String    @unique
+  title         String
+  brand         String?
+  category      String
+  compatible    String?
+  condition     String    @default("Good")
+  costPrice     Float     @default(0)
+  salePrice     Float?
+  quantity      Int       @default(1)
+  minStock      Int       @default(1)
+  status        String    @default("In Stock")
+  location      String?
+  notes         String?
+  ebayListingId String?
+  ebaySku       String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  devices       DeviceAccessory[]
+}
+
+model DeviceAccessory {
+  id          String    @id @default(cuid())
+  deviceId    String
+  accessoryId String
+  device      Device    @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  accessory   Accessory @relation(fields: [accessoryId], references: [id], onDelete: Cascade)
+  @@unique([deviceId, accessoryId])
+}
+
+model EbayOrder {
+  id             String   @id @default(cuid())
+  ebayOrderId    String   @unique
+  buyerUsername  String?
+  buyerEmail     String?
+  salePrice      Float
+  shippingCost   Float    @default(0)
+  saleDate       DateTime
+  shippingStatus String   @default("PENDING")
+  trackingNumber String?
+  carrier        String?
+  lineItems      String
+  matched        Boolean  @default(false)
+  deviceId       String?
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  device         Device?  @relation(fields: [deviceId], references: [id])
+}
+
+model EbayAccount {
+  id           String   @id @default(cuid())
+  username     String
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
